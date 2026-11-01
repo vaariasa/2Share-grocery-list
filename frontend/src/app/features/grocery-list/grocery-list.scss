@@ -1,0 +1,106 @@
+// Styles only for the grocery list page. Colors come from the CSS variables in styles.scss.
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+
+  .user {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--color-muted);
+  }
+}
+
+.content {
+  max-width: 640px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.add-form {
+  display: flex;
+  gap: 0.5rem;
+  padding: 1rem;
+
+  input[formControlName='name'] {
+    flex: 1;
+  }
+
+  input[type='number'] {
+    width: 5rem;
+  }
+}
+
+.hint {
+  margin: 0;
+  color: var(--color-muted);
+  font-size: 0.9rem;
+}
+
+.item-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+
+  & + & {
+    border-top: 1px solid var(--color-border);
+  }
+
+  label {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    cursor: pointer;
+  }
+
+  input[type='checkbox'] {
+    width: 1.1rem;
+    height: 1.1rem;
+    accent-color: var(--color-primary);
+  }
+
+  .quantity {
+    color: var(--color-muted);
+    font-size: 0.9rem;
+  }
+
+  // Tagged items (already in the basket) are crossed out.
+  &.in-basket .name {
+    text-decoration: line-through;
+    color: var(--color-muted);
+  }
+}
+
+.btn-remove {
+  border: none;
+  background: none;
+  color: var(--color-danger);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.9rem;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.empty {
+  padding: 1.5rem 1rem;
+  text-align: center;
+  color: var(--color-muted);
+}

@@ -1,1 +1,162 @@
-/* You can add global styles to this file, and also import other style files */
+@use 'sass:color';
+
+// ---------- Design tokens ----------
+// SCSS variables, also exposed as CSS custom properties (var(--...))
+// so component stylesheets can use the same colors.
+
+$color-primary: #2e7d32;
+$color-primary-dark: #1b5e20;
+$color-danger: #c62828;
+$color-text: #212121;
+$color-muted: #6b6b6b;
+$color-border: #dcdcdc;
+$color-background: #f4f6f4;
+$color-surface: #ffffff;
+$radius: 8px;
+
+:root {
+  --color-primary: #{$color-primary};
+  --color-danger: #{$color-danger};
+  --color-muted: #{$color-muted};
+  --color-border: #{$color-border};
+  --color-surface: #{$color-surface};
+}
+
+// ---------- Base ----------
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  color: $color-text;
+  background: $color-background;
+}
+
+h1 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+a {
+  color: $color-primary;
+}
+
+input {
+  font: inherit;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid $color-border;
+  border-radius: $radius;
+
+  &:focus {
+    outline: 2px solid color.change($color-primary, $alpha: 0.3);
+    border-color: $color-primary;
+  }
+
+  // Angular adds these classes automatically to invalid fields the user has touched.
+  &.ng-invalid.ng-touched {
+    border-color: $color-danger;
+  }
+}
+
+// ---------- Shared components ----------
+
+.card {
+  background: $color-surface;
+  border: 1px solid $color-border;
+  border-radius: $radius;
+}
+
+.btn {
+  font: inherit;
+  padding: 0.6rem 1rem;
+  border: 1px solid transparent;
+  border-radius: $radius;
+  cursor: pointer;
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+.btn-primary {
+  background: $color-primary;
+  color: #fff;
+
+  &:hover:not(:disabled) {
+    background: $color-primary-dark;
+  }
+}
+
+.btn-secondary {
+  background: $color-surface;
+  border-color: $color-border;
+  color: $color-text;
+
+  &:hover {
+    background: $color-background;
+  }
+}
+
+.message {
+  margin: 0;
+  padding: 0.6rem 0.75rem;
+  border-radius: $radius;
+
+  &.error {
+    background: color.change($color-danger, $alpha: 0.08);
+    color: $color-danger;
+  }
+
+  &.success {
+    background: color.change($color-primary, $alpha: 0.1);
+    color: $color-primary-dark;
+  }
+}
+
+// ---------- Auth pages (login and register share the same layout) ----------
+
+.auth-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 380px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  .subtitle {
+    margin: -0.5rem 0 0;
+    color: $color-muted;
+  }
+
+  .switch {
+    margin: 0;
+    text-align: center;
+    color: $color-muted;
+  }
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+
+  span {
+    font-weight: 500;
+  }
+}
+
+.field-error {
+  color: $color-danger;
+}

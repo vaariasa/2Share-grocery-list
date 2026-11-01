@@ -1,0 +1,52 @@
+<header class="topbar">
+  <h1>My grocery list</h1>
+  <div class="user">
+    <span>{{ authService.fullName() }}</span>
+    <button class="btn btn-secondary" type="button" (click)="logout()">Log out</button>
+  </div>
+</header>
+
+<main class="content">
+  <form class="card add-form" [formGroup]="form" (ngSubmit)="addItem()">
+    <input
+      formControlName="name"
+      placeholder="Add a product, e.g. Milk"
+      maxlength="100"
+      aria-label="Product name"
+    />
+    <input formControlName="quantity" type="number" min="1" aria-label="Quantity" />
+    <button class="btn btn-primary" type="submit" [disabled]="form.invalid">Add</button>
+  </form>
+
+  @if (errorMessage()) {
+    <p class="message error">{{ errorMessage() }}</p>
+  }
+
+  @if (isLoading()) {
+    <p class="hint">Loading your list...</p>
+  } @else {
+    <p class="hint">Tick a product when you put it in your basket.</p>
+
+    <ul class="card item-list">
+      @for (item of items(); track item.id) {
+        <li class="item" [class.in-basket]="item.isInBasket">
+          <label>
+            <input type="checkbox" [checked]="item.isInBasket" (change)="toggleBasket(item)" />
+            <span class="name">{{ item.name }}</span>
+            <span class="quantity">x{{ item.quantity }}</span>
+          </label>
+          <button
+            class="btn-remove"
+            type="button"
+            (click)="removeItem(item)"
+            [attr.aria-label]="'Remove ' + item.name"
+          >
+            Remove
+          </button>
+        </li>
+      } @empty {
+        <li class="empty">Your grocery list is empty. Add your first product above.</li>
+      }
+    </ul>
+  }
+</main>
