@@ -1,3 +1,66 @@
-@GroceryList.Api_HostAddress = http://localhost:5157
+# Manual tests for the Grocery List API.
+# Open this file in Visual Studio or VS Code (REST Client extension) and click "Send Request".
+# Run them in order: register -> login -> the rest use the token from the login response.
 
-###
+@baseUrl = http://localhost:5157/api
+@token = {{login.response.body.$.token}}
+
+### 1. Register a new user
+POST {{baseUrl}}/auth/register
+Content-Type: application/json
+
+{
+  "username": "demo",
+  "fullName": "Demo User",
+  "password": "Demo123!"
+}
+
+### 2. Login (the token is stored in @token)
+# @name login
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "username": "demo",
+  "password": "Demo123!"
+}
+
+### 3. Get my grocery list
+GET {{baseUrl}}/grocery-items
+Authorization: Bearer {{token}}
+
+### 3b. Without a token -> 401 Unauthorized
+GET {{baseUrl}}/grocery-items
+
+### 4. Add a product
+# @name addItem
+POST {{baseUrl}}/grocery-items
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "Milk",
+  "quantity": 2
+}
+
+### 6. Tag the product (put it in the basket)
+PATCH {{baseUrl}}/grocery-items/{{addItem.response.body.$.id}}/basket
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "isInBasket": true
+}
+
+### 7. Un-tag the product (put it back)
+PATCH {{baseUrl}}/grocery-items/{{addItem.response.body.$.id}}/basket
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "isInBasket": false
+}
+
+### 5. Remove the product
+DELETE {{baseUrl}}/grocery-items/{{addItem.response.body.$.id}}
+Authorization: Bearer {{token}}
