@@ -14,7 +14,6 @@
       maxlength="100"
       aria-label="Product name"
     />
-    <input formControlName="quantity" type="number" min="1" aria-label="Quantity" />
     <button class="btn btn-primary" type="submit" [disabled]="form.invalid">Add</button>
   </form>
 
@@ -33,7 +32,6 @@
           <label>
             <input type="checkbox" [checked]="item.isInBasket" (change)="toggleBasket(item)" />
             <span class="name">{{ item.name }}</span>
-            <span class="quantity">x{{ item.quantity }}</span>
           </label>
           <button
             class="btn-remove"

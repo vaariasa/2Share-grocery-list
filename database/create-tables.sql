@@ -44,7 +44,6 @@ BEGIN
         Id         UNIQUEIDENTIFIER NOT NULL,
         UserId     UNIQUEIDENTIFIER NOT NULL,
         Name       NVARCHAR(100)    NOT NULL,
-        Quantity   INT              NOT NULL,
         IsInBasket BIT              NOT NULL,   -- 1 = tagged (in the basket), 0 = still to buy
         CreatedAt  DATETIMEOFFSET   NOT NULL,
         UpdatedAt  DATETIMEOFFSET   NOT NULL,

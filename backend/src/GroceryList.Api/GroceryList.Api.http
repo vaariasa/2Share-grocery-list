@@ -39,8 +39,7 @@ Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-  "name": "Milk",
-  "quantity": 2
+  "name": "Milk"
 }
 
 ### 6. Tag the product (put it in the basket)

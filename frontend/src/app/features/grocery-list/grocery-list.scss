@@ -33,10 +33,6 @@
   input[formControlName='name'] {
     flex: 1;
   }
-
-  input[type='number'] {
-    width: 5rem;
-  }
 }
 
 .hint {
@@ -72,11 +68,6 @@
     width: 1.1rem;
     height: 1.1rem;
     accent-color: var(--color-primary);
-  }
-
-  .quantity {
-    color: var(--color-muted);
-    font-size: 0.9rem;
   }
 
   // Tagged items (already in the basket) are crossed out.

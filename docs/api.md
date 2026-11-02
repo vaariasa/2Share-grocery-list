@@ -119,7 +119,6 @@ Response `200 OK`, ordered by creation date:
   {
     "id": "f3dd1acb-5c0c-40ab-a458-c64eb7f88f32",
     "name": "Milk",
-    "quantity": 2,
     "isInBasket": false,
     "createdAt": "2026-11-01T21:40:37.68+00:00"
   }
@@ -132,15 +131,13 @@ Request:
 
 ```json
 {
-  "name": "Milk",
-  "quantity": 2
+  "name": "Milk"
 }
 ```
 
 | Field | Rules |
 |---|---|
 | `name` | required, 1–100 characters |
-| `quantity` | optional, at least 1, default `1` |
 
 Response `201 Created`: the created item (same shape as in `GET`). New items have `isInBasket: false`.
 

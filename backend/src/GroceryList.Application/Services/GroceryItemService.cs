@@ -23,8 +23,6 @@ public class GroceryItemService(IGroceryItemRepository groceryItemRepository)
 
         if (name.Length is 0 or > 100)
             throw new ValidationException("Name is required and must be at most 100 characters.");
-        if (request.Quantity < 1)
-            throw new ValidationException("Quantity must be at least 1.");
 
         var now = DateTimeOffset.UtcNow;
         var item = new GroceryItem
@@ -32,7 +30,6 @@ public class GroceryItemService(IGroceryItemRepository groceryItemRepository)
             Id = Guid.NewGuid(),
             UserId = userId,
             Name = name,
-            Quantity = request.Quantity,
             IsInBasket = false,
             CreatedAt = now,
             UpdatedAt = now
@@ -67,5 +64,5 @@ public class GroceryItemService(IGroceryItemRepository groceryItemRepository)
         ?? throw new NotFoundException("Grocery item not found.");
 
     private static GroceryItemResponse ToResponse(GroceryItem item) =>
-        new(item.Id, item.Name, item.Quantity, item.IsInBasket, item.CreatedAt);
+        new(item.Id, item.Name, item.IsInBasket, item.CreatedAt);
 }

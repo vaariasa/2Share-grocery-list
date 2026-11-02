@@ -12,8 +12,6 @@ public class GroceryItem
 
     public string Name { get; set; } = string.Empty;
 
-    public int Quantity { get; set; } = 1;
-
     /// <summary>True when the item is tagged (put in the basket while shopping).</summary>
     public bool IsInBasket { get; set; }
 

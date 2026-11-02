@@ -25,7 +25,6 @@ export class GroceryList implements OnInit {
 
   protected readonly form = inject(FormBuilder).nonNullable.group({
     name: ['', [Validators.required, Validators.maxLength(100)]],
-    quantity: [1, [Validators.required, Validators.min(1)]],
   });
 
   ngOnInit(): void {

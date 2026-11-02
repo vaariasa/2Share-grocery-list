@@ -4,12 +4,10 @@
 export interface GroceryItem {
   id: string;
   name: string;
-  quantity: number;
   isInBasket: boolean;
   createdAt: string;
 }
 
 export interface CreateGroceryItemRequest {
   name: string;
-  quantity: number;
 }

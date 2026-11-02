@@ -53,7 +53,7 @@ flowchart LR
 There are two concepts:
 
 - **User** – a person with a unique username, a full name and a (hashed) password.
-- **GroceryItem** – a product on a user's list, with a name, a quantity and a flag `IsInBasket`.
+- **GroceryItem** – a product on a user's list, with a name and a flag `IsInBasket`.
   *Tagging* a product means `IsInBasket = true`; *un-tagging* means `IsInBasket = false`.
 
 ```mermaid
@@ -72,7 +72,6 @@ erDiagram
         uniqueidentifier Id PK
         uniqueidentifier UserId FK
         nvarchar(100) Name
-        int Quantity "default 1"
         bit IsInBasket "tagged or not"
         datetimeoffset CreatedAt
         datetimeoffset UpdatedAt
@@ -88,7 +87,7 @@ Deleting a user deletes their items (`ON DELETE CASCADE`).
 |---|---|
 | A username can only be registered once | `AuthService` (409 Conflict) and a unique index in the database |
 | Username 1–50 chars, full name 1–100 chars, password at least 6 chars | `AuthService` (and the register form, for quick feedback) |
-| Product name 1–100 chars, quantity at least 1 | `GroceryItemService` (and the add form) |
+| Product name 1–100 chars | `GroceryItemService` (and the add form) |
 | A user can only see and change **their own** items | Every repository query filters by `UserId`, and the `UserId` always comes from the token |
 | An item of another user is reported as "not found" (404), not "forbidden" | `GroceryItemService` – this does not reveal that the item exists |
 | Login errors never say whether the username or the password was wrong | `AuthService` – prevents guessing which usernames exist |
@@ -294,10 +293,10 @@ sequenceDiagram
         API->>Ctrl: Add(request)
         Ctrl->>Ctrl: userId = token "sub" claim
         Ctrl->>Svc: AddAsync(userId, request)
-        Svc->>Svc: validate name and quantity
+        Svc->>Svc: validate name
         Svc->>DB: INSERT GroceryItems (UserId = userId)
         Svc-->>Ctrl: GroceryItemResponse
-        Ctrl-->>SPA: 201 { id, name, quantity, isInBasket, createdAt }
+        Ctrl-->>SPA: 201 { id, name, isInBasket, createdAt }
         SPA-->>User: item appears in the list
     end
 ```
