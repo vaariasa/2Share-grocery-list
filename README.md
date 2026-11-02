@@ -75,8 +75,27 @@ sqlcmd -S "(localdb)\GroceryProject" -E -i database/create-tables.sql
 
 The database starts empty: create your user from the Register page.
 
-> Using another SQL Server? Run the script there and change `ConnectionStrings:GroceryDb` in
-> [`backend/src/GroceryList.Api/appsettings.json`](backend/src/GroceryList.Api/appsettings.json).
+<details>
+<summary>Using SQL Server Express or another SQL Server instead of LocalDB</summary>
+
+Run the script against that server instead, for example:
+
+```bash
+sqlcmd -S .\SQLEXPRESS -E -i database/create-tables.sql
+```
+
+Then point the backend to the same server: change `ConnectionStrings:GroceryDb` in
+[`backend/src/GroceryList.Api/appsettings.json`](backend/src/GroceryList.Api/appsettings.json).
+Only the `Server=` part changes, the rest stays the same:
+
+```diff
+- "GroceryDb": "Server=(localdb)\\GroceryProject;Database=GroceryProject;Trusted_Connection=True;TrustServerCertificate=True"
++ "GroceryDb": "Server=.\\SQLEXPRESS;Database=GroceryProject;Trusted_Connection=True;TrustServerCertificate=True"
+```
+
+The `-S` used with `sqlcmd` and the `Server=` used in the connection string must point to the same instance.
+
+</details>
 
 ### 2. Run the backend
 
