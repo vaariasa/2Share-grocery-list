@@ -103,7 +103,8 @@ The `-S` used with `sqlcmd` and the `Server=` used in the connection string must
 dotnet run --project backend/src/GroceryList.Api
 ```
 
-The API listens on **http://localhost:5157**. You can try every endpoint with
+The API listens on **http://localhost:5157**. Browse and try every endpoint at
+**http://localhost:5157/swagger**, or use
 [`GroceryList.Api.http`](backend/src/GroceryList.Api/GroceryList.Api.http)
 (Visual Studio, or VS Code with the REST Client extension).
 

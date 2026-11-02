@@ -7,6 +7,8 @@ and a new backend implementation only needs to respect it.
 - **Format:** JSON (`Content-Type: application/json`), property names in camelCase
 - **Authentication:** JWT bearer token, sent as `Authorization: Bearer <token>`
 - **Machine-readable description:** OpenAPI document at `http://localhost:5157/openapi/v1.json` (development only)
+- **Browsable documentation:** Swagger UI at `http://localhost:5157/swagger` (development only) — lists every
+  endpoint, lets you try them from the browser, and has an "Authorize" button to set the Bearer token once
 - **Try it:** [`backend/src/GroceryList.Api/GroceryList.Api.http`](../backend/src/GroceryList.Api/GroceryList.Api.http)
 
 ## Endpoints overview

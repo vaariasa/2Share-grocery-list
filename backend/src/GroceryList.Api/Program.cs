@@ -50,7 +50,12 @@ app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 if (app.Environment.IsDevelopment())
 {
-    app.MapOpenApi();
+    app.MapOpenApi(); // raw description at /openapi/v1.json
+    app.UseSwaggerUI(options =>
+    {
+        options.SwaggerEndpoint("/openapi/v1.json", "Grocery List API v1");
+        options.RoutePrefix = "swagger"; // browsable UI at /swagger
+    });
 }
 else
 {
