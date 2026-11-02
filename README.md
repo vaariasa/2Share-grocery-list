@@ -107,6 +107,12 @@ The API listens on **http://localhost:5157**. You can try every endpoint with
 [`GroceryList.Api.http`](backend/src/GroceryList.Api/GroceryList.Api.http)
 (Visual Studio, or VS Code with the REST Client extension).
 
+Run the unit tests with:
+
+```bash
+dotnet test backend/GroceryList.sln
+```
+
 ### 3. Run the frontend
 
 ```bash

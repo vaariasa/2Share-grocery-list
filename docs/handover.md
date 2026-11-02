@@ -75,14 +75,22 @@ These were left out on purpose to keep the demo simple. They should be addressed
 | No refresh token: the user must log in again after 60 minutes | Add refresh tokens if longer sessions are needed |
 | Logout does not invalidate the token on the server (it stays valid until it expires) | Short token lifetime, or a server-side deny list if needed |
 | HTTP (not HTTPS) in local development | HTTPS is enabled automatically outside Development (`UseHttpsRedirection`). Host behind HTTPS |
-| No automated tests | Add unit tests for the Application services (mock the interfaces) and integration tests for the API (`WebApplicationFactory`) |
+| No integration tests for the API (only unit tests for the Application services, see below) | Add them with `WebApplicationFactory` if the project grows |
 | One environment file in the frontend | Add `environment.production.ts` with `fileReplacements` in `angular.json` when deploying |
 | No login rate limiting | Use ASP.NET Core rate limiting on `/api/auth/login` |
 | No pagination on the item list | Fine for a grocery list. Add paging if lists can grow large |
 
-## Suggested next steps
+## Tests
 
-1. Unit tests for `AuthService` and `GroceryItemService`.
-2. Move secrets out of `appsettings.json`.
-3. Production frontend configuration and a deployment pipeline (CI: `dotnet build`, `npm run build`).
-4. Optional: Docker Compose with API + SQL Server for one-command setup.
+Unit tests for the Application layer live in
+[`backend/tests/GroceryList.Application.Tests`](../backend/tests/GroceryList.Application.Tests/)
+(xUnit + Moq). They cover `AuthService` and `GroceryItemService` with the repositories, password
+hasher and token service mocked, so no database is needed. Run them with:
+
+```bash
+dotnet test backend/GroceryList.sln
+```
+
+They check the business rules behind each user story: registration validation, a taken username,
+wrong login credentials, adding an item, and — the most important one — that an item belonging to
+another user is always reported as "not found", never loaded or changed.
